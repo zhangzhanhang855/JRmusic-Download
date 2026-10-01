@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安裝 JRmusic</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            text-align: center;
+            padding-top: 80px;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 28px;
+            background-color: #007aff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>JRmusic (v1.0.1)</h2>
+        <p>正在呼叫系統安裝程式，請稍候...</p>
+        <p style="font-size: 14px; color: #888;">若未彈出提示，請點擊下方按鈕：</p>
+        <a id="installBtn" class="btn" href="#">點擊安裝 JRmusic</a>
+    </div>
+
+    <script>
+        // 指向 GitHub Pages 上生成的 manifest.plist
+        const plistUrl = encodeURIComponent("https://zhangzhanhang855.github.io/JRmusic-Download/manifest.plist");
+        const installUrl = `itms-services://?action=download-manifest&url=${plistUrl}`;
+
+        // 綁定按鈕
+        document.getElementById("installBtn").href = installUrl;
+
+        // 判斷是否為 iOS / iPadOS 裝置並自動呼叫
+        window.addEventListener("DOMContentLoaded", () => {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+            if (isIOS) {
+                // 自動跳轉協議彈出系統確認框
+                window.location.href = installUrl;
+            }
+        });
+    </script>
+</body>
+</html>
